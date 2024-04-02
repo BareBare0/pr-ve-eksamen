@@ -1,0 +1,54 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema henvedelse
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema henvedelse
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `henvedelse` DEFAULT CHARACTER SET utf8mb4 ;
+USE `henvedelse` ;
+
+-- -----------------------------------------------------
+-- Table `henvedelse`.`Users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `henvedelse`.`Users` (
+  `IDBruker` INT(11) NOT NULL AUTO_INCREMENT,
+  `Brukernavn` VARCHAR(45) NOT NULL,
+  `Passord` VARCHAR(45) NOT NULL,
+  `Epost` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`IDBruker`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `henvedelse`.`HenvedelseP`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `henvedelse`.`HenvedelseP` (
+  `BrukerIDH` INT(11) NOT NULL AUTO_INCREMENT,
+  `Tittel` VARCHAR(45) NOT NULL,
+  `Henvedelse` VARCHAR(45) NOT NULL,
+  `Users_IDBruker` INT(11) NOT NULL,
+  PRIMARY KEY (`BrukerIDH`),
+  INDEX `fk_HenvedelseP_Users_idx` (`Users_IDBruker` ) VISIBLE,
+  CONSTRAINT `fk_HenvedelseP_Users`
+    FOREIGN KEY (`Users_IDBruker`)
+    REFERENCES `henvedelse`.`Users` (`IDBruker`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
